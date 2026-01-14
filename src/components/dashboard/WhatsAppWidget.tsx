@@ -1,6 +1,7 @@
 import { MessageCircle, Send, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useMetaTracking } from "@/hooks/useMetaTracking";
 
 const messages = [
   {
@@ -34,11 +35,20 @@ const messages = [
 ];
 
 export function WhatsAppWidget() {
+  const { trackContact } = useMetaTracking();
+
+  const handleWhatsAppClick = () => {
+    trackContact({ content_name: 'WhatsApp Widget' });
+  };
+
   return (
     <section className="fade-in">
       <div className="rounded-2xl border border-border/50 bg-card overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between bg-emerald-600 px-4 py-3 text-white">
+        <div 
+          className="flex items-center justify-between bg-emerald-600 px-4 py-3 text-white cursor-pointer"
+          onClick={handleWhatsAppClick}
+        >
           <div className="flex items-center gap-2">
             <MessageCircle className="h-5 w-5" />
             <span className="font-semibold">WhatsApp</span>

@@ -1,1 +1,4 @@
 project_id = "oiwzdtujpromfbqlztib"
+
+[functions.meta-conversions]
+verify_jwt = false
