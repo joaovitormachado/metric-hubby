@@ -1,5 +1,6 @@
 import { Calendar, Video, Users, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useMetaTracking } from "@/hooks/useMetaTracking";
 
 const meetingTypes = [
   {
@@ -19,6 +20,13 @@ const meetingTypes = [
 ];
 
 export function MeetingScheduler() {
+  const { trackLead, trackSchedule } = useMetaTracking();
+
+  const handleScheduleClick = (meetingTitle: string) => {
+    trackLead({ content_name: meetingTitle });
+    trackSchedule({ content_name: meetingTitle });
+  };
+
   return (
     <section className="fade-in">
       <div className="rounded-2xl border border-border/50 bg-card p-4 md:p-6">
@@ -52,7 +60,11 @@ export function MeetingScheduler() {
                     </div>
                   </div>
                 </div>
-                <Button className="mt-4 w-full" size="sm">
+                <Button 
+                  className="mt-4 w-full" 
+                  size="sm"
+                  onClick={() => handleScheduleClick(meeting.title)}
+                >
                   <Calendar className="mr-2 h-4 w-4" />
                   Agendar
                 </Button>
